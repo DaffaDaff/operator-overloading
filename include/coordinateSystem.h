@@ -4,9 +4,11 @@
 #include <iomanip>
 #include <vector>
 #include <math.h>
+#include <string.h>
 
 #include "include/utils.h"
 #include "include/rectangle.h"
+#include "include/point.h"
 
 using namespace std;
 

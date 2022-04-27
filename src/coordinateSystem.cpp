@@ -43,7 +43,7 @@ void coordinateSystem::Draw(worldData* data){
     }
     cout << endl;
 
-    for(unsigned int i = 3; i >= 1; i--){
+    for(int i = 3; i >= 1; i--){
         cout << "     ";
 
         for(unsigned int x = 0; x <= 24; x++){

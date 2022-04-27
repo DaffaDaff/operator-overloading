@@ -25,7 +25,7 @@ void coordinateSystem::Draw(worldData* data){
     }
 
     for(int y = 14; y >= 0; y--){
-        std::cout << std::setfill(' ') << std::setw(4) << y + offsetY << " ";
+        cout << setfill(' ') << setw(4) << y + offsetY << " ";
 
         for(unsigned int x = 0; x <= 24; x++){
             if(rectanglePoints[x][y] != 0) cout << rectanglePoints[x][y] << " ";
@@ -35,7 +35,7 @@ void coordinateSystem::Draw(worldData* data){
     }
 
     cout << "     ";
-    for(unsigned int x = 0; x <= 24; x++){
+    for(int x = 0; x <= 24; x++){
         if(x + offsetX < 0)
             cout << "- ";
         else
@@ -46,8 +46,8 @@ void coordinateSystem::Draw(worldData* data){
     for(int i = 3; i >= 1; i--){
         cout << "     ";
 
-        for(unsigned int x = 0; x <= 24; x++){
-            int n = abs(x + offsetX);
+        for(int x = 0; x <= 24; x++){
+            int n = std::abs(x + offsetX);
 
             if(utils::GetDigit(n) >= i)
                 cout << utils::GetDigit(n, i) << " ";

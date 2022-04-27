@@ -24,7 +24,7 @@ void coordinateSystem::Draw(worldData* data){
         }
     }
 
-    for(unsigned int y = 14; y >= 0; y--){
+    for(int y = 14; y >= 0; y--){
         std::cout << std::setfill(' ') << std::setw(4) << y + offsetY << " ";
 
         for(unsigned int x = 0; x <= 24; x++){

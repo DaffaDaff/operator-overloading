@@ -4,14 +4,6 @@ void input::MainMenu(worldData* data){
     while(1){
         utils::ClearScreen();
 
-        #ifdef _WIN32 || _ WIN64
-        cout << "Windows Detected" << endl;
-
-        #elif __linux__
-        cout << "Linux Detected" << endl;
-
-        #endif
-
         cout << "Welcome To Cartesian Rectangle Simulation" << endl;
         cout << endl;
         cout << "1. Show Graph" << endl;
@@ -53,6 +45,7 @@ void input::Graph(worldData* data){
         int input = 0;
         
         input = utils::getch();
+
 
         switch (input){
             case 'w':

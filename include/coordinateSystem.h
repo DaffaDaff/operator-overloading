@@ -5,6 +5,7 @@
 #include <vector>
 #include <math.h>
 #include <string.h>
+#include <cstdlib>
 
 #include "include/utils.h"
 #include "include/rectangle.h"

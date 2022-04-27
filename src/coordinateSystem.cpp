@@ -47,7 +47,7 @@ void coordinateSystem::Draw(worldData* data){
         cout << "     ";
 
         for(unsigned int x = 0; x <= 24; x++){
-            int n = (x + offsetX) * (x + offsetX);
+            int n = abs(x + offsetX);
 
             if(utils::GetDigit(n) >= i)
                 cout << utils::GetDigit(n, i) << " ";

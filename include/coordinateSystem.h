@@ -3,9 +3,9 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include <cstdlib>
 #include <math.h>
 #include <string.h>
-#include <cstdlib>
 
 #include "include/utils.h"
 #include "include/rectangle.h"

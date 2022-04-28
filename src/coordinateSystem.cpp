@@ -14,12 +14,13 @@ void coordinateSystem::Draw(worldData* data){
         int yMin = ceil(rectangle->GetYMin());
         int yMax = ceil(rectangle->GetYMax()) - 1;
 
-        for(int j = yMin; j <= yMax; j++){
-            for(int k = xMin; k <= xMax; k++){
-                //if((j != yMin && j != yMax) && (k != xMin && k != xMax)) continue;
-                if((j < 0 + offsetY || j > 15 + offsetY) || (k < 0 + offsetX || k > 25 + offsetX)) continue;
+        for(int j = xMin; j <= xMax; j++){
+            for(int k = yMin; k <= yMax; k++){
+                if(!rectangle->GetFill())
+                    if((j != xMin && j != xMax) && (k != yMin && k != yMax)) continue;
+                if((j < 0 + offsetX || j > 25 + offsetX) || (k < 0 + offsetY || k > 15 + offsetY)) continue;
 
-                rectanglePoints[k - offsetX][j - offsetY] = rectangle->GetSymbol();
+                rectanglePoints[j - offsetX][k - offsetY] = rectangle->GetSymbol();
             }
         }
     }

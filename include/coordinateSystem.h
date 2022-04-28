@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _COORDINATESYSTEM_H_
+#define _COORDINATESYSTEM_H_
 
 #include <iostream>
 #include <iomanip>
@@ -8,7 +9,6 @@
 
 #include "include/utils.h"
 #include "include/rectangle.h"
-#include "include/point.h"
 
 using namespace std;
 
@@ -22,3 +22,5 @@ struct worldData{
 namespace coordinateSystem{
     void Draw(worldData* data);
 };
+
+#endif

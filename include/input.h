@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _INPUT_H_
+#define _INPUT_H_
 
 #include <iostream>
 
@@ -17,3 +18,5 @@ namespace input{
     void PrintRectangles(worldData* data);
     void ShowRectangle(worldData* data, int index);
 };
+
+#endif

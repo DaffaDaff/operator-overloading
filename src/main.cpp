@@ -6,6 +6,7 @@
 using namespace std;
 
 int main(){
+
     worldData* dat = new worldData;
 
     input::MainMenu(dat);

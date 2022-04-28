@@ -8,6 +8,7 @@ void input::MainMenu(worldData* data){
         cout << endl;
         cout << "1. Show Graph" << endl;
         cout << "2. Show Rectangles" << endl;
+        cout << "0. Exit" << endl;
         cout << endl;
         cout << "-> Select Menu: ";
 
@@ -25,6 +26,9 @@ void input::MainMenu(worldData* data){
                 utils::ClearScreen();
                 RectangleMenu(data);
                 break;
+            case '0':
+                utils::ClearScreen();
+                return;
             
             default:
                 break;
@@ -44,7 +48,7 @@ void input::Graph(worldData* data){
         
         int input = 0;
         
-        input = utils::getch();
+        input = utils::getchar();
 
 
         switch (input){
@@ -93,7 +97,7 @@ void input::RectangleMenu(worldData* data){
         cout << endl;
         cout << "Other Menu: " << endl;
         cout << "99. Add Rectangle" << endl;
-        cout << "0. Exit" << endl;
+        cout << "0. Back" << endl;
         cout << endl;
         cout << "-> Select Menu: ";
 
@@ -112,7 +116,10 @@ void input::RectangleMenu(worldData* data){
             return;
         
         default:
-            if(input < 1 || input > data->rectangles.size()) break;
+            if(input < 1 || input > data->rectangles.size()) {
+                utils::ClearScreen();
+                break;
+            }
 
             ShowRectangle(data, input - 1);
 
@@ -142,7 +149,7 @@ rectangle input::InputRectangle(){
     cout << endl << "Input Symbol: ";
     cin >> symbol;
     
-    return rectangle(point, width, height, symbol);
+    return rectangle(point, width, height, symbol, false);
 }
 
 void input::PrintRectangles(worldData* data){
@@ -161,41 +168,49 @@ void input::PrintRectangles(worldData* data){
 
 void input::ShowRectangle(worldData* data, int index){
     rectangle* rect = &data->rectangles[index];
+    while(1){
+        utils::ClearScreen();
 
-    utils::ClearScreen();
+        cout << "Center: " << "{" << rect->GetX() << ", " << rect->GetY() << ")" << endl;
+        cout << "Width: " << rect->GetWidth() << endl;
+        cout << "Height: " << rect->GetHeight() << endl;
+        cout << "X Border: " << rect->GetYMin() << " - " << rect->GetYMax() << endl;
+        cout << "Y Border: " << rect->GetXMin() << " - " << rect->GetXMax() << endl;
+        cout << "Symbol: " << rect->GetSymbol() << endl;
+        cout << endl;
+        cout << "Options: " << endl;
+        cout << "9. Delete Rectangle" << endl;
+        cout << "0. Back" << endl;
+        cout << endl;
+        cout << "-> ";
 
-    cout << "Center: " << "{" << rect->GetX() << ", " << rect->GetY() << ")" << endl;
-    cout << "Width: " << rect->GetWidth() << endl;
-    cout << "Height: " << rect->GetHeight() << endl;
-    cout << "X Border: " << rect->GetYMin() << " - " << rect->GetYMax() << endl;
-    cout << "Y Border: " << rect->GetXMin() << " - " << rect->GetXMax() << endl;
-    cout << "Symbol: " << rect->GetSymbol() << endl;
-    cout << endl;
-    cout << "Options: " << endl;
-    cout << "0. Delete Rectangle" << endl;
-    cout << endl;
-    cout << "-> ";
+        int input;
+        cin >> input;
 
-    int input;
-    cin >> input;
+        cout << endl;
 
-    cout << endl;
+        switch (input){
+            case 9:
+                cout << "Are You Sure You Want To Delete This Rectangle?(y/n) ";
 
-    switch (input){
-        case 0:
-            cout << "Are You Sure You Want To Delete This Rectangle?(y/n) ";
+                char YN;
+                cin >> YN;
 
-            char YN;
-            cin >> YN;
+                if(YN != 'Y' && YN != 'y') break;
 
-            if(YN != 'Y' && YN != 'y') break;
+                data->rectangles.erase(data->rectangles.begin() + index);
 
-            data->rectangles.erase(data->rectangles.begin() + index);
-            break;
-        
-        default:
-            break;
+                utils::ClearScreen();
+                cout << "Rectangle Succesfully Deleted" << endl;
+                return;
+            case 0:
+                utils::ClearScreen();
+                return;
+            
+            default:
+                break;
+        }
     }
 
-    utils::ClearScreen();
+    
 }

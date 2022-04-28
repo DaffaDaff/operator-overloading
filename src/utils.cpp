@@ -34,11 +34,11 @@ int utils::GetDigit(int value, int digit){
     return n;
 }
 
-char utils::getch() {
+char utils::getchar() {
     #if defined(_WIN32) || defined(_WIN64)
         char input;
-
-        input = _getch();
+        
+        input = getch();
         fflush(stdin);
 
         return input;

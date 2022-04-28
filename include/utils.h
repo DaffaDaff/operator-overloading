@@ -1,7 +1,9 @@
-#pragma once
+#ifndef _UTILITY_H_
+#define _UTILITY_H_
 
 #include <iostream>
 #include <stdlib.h>
+
 
 #if defined(_WIN32) || defined(_WIN64)
     #include <conio.h>
@@ -12,10 +14,16 @@
 
 #endif
 
+struct point{
+    float x, y;
+};
+
 namespace utils{
     void ClearScreen();
     int GetDigit(int value);
     int GetDigit(int value, int digit);
 
-    char getch();
+    char getchar();
 }
+
+#endif

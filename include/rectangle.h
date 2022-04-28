@@ -1,8 +1,9 @@
-#pragma once
+#ifndef _RECTANGLE_H_
+#define _RECTANGLE_H_
 
 #include <iostream>
 
-#include "include/point.h"
+#include "include/utils.h"
 
 class rectangle{
     private:
@@ -10,8 +11,20 @@ class rectangle{
         int width;
         int height;
         char symbol;
+
+        float xMin;
+        float xMax;
+        float yMin;
+        float yMax;
+
+        bool isFill;
     public:
-        rectangle(point _center, int _width, int _height, char _symbol) { center = _center; width = _width; height = _height; symbol = _symbol; };
+        rectangle(point _center, int _width, int _height, char _symbol, bool _isFill);
+
+        void SetWidth(int value) { width = value; };
+        void SetHeight(int value) { height = value; };
+
+        void SetFill(bool value) { isFill = value; };
 
         float GetX() { return center.x; };
         float GetY() { return center.y; };
@@ -21,10 +34,21 @@ class rectangle{
 
         char GetSymbol() { return symbol; };
 
-        float GetXMin() { return center.y - (height / 2.f); };
-        float GetXMax() { return center.y + (height / 2.f); };
+        float GetXMin() { return xMin; };
+        float GetXMax() { return xMax; };
+        float GetYMin() { return yMin; };
+        float GetYMax() { return yMax; };
 
-        float GetYMin() { return center.y - (width / 2.f); };
-        float GetYMax() { return center.y + (width / 2.f); };
+        bool GetFill() { return isFill; }
+
+        void UpdateXMin() { xMin =  center.y - (width / 2.f); };
+        void UpdateXMax() { xMax = center.y + (width / 2.f); };
+
+        void UpdateYMin() { yMin = center.y - (height / 2.f); };
+        void UpdateYMax() { yMax = center.y + (height / 2.f); };
+
+
 
 };
+
+#endif

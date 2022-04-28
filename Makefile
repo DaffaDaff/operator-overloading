@@ -27,13 +27,13 @@ app: $(SOURCES:.cpp=.o)
 $(BUILDDIR)/$(BUILD) : $(SOURCES:.cpp=.o)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-all: $(BUILDDIR)/$(BUILD) 
+build: $(BUILDDIR)/$(BUILD) 
 
-
+all: app build
 
 clean:
 	cd src && $(DELETE) *.o
 
 cleanall: clean
 	$(DELETE) app.exe
-	cd $(BUILDDIR) && $(DELETE) $(BUILD).exe
+	cd $(BUILDDIR) && ($(DELETE) $(BUILD).exe | $(DELETE) $(BUILD).exe)

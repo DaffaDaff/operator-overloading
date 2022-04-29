@@ -89,6 +89,8 @@ void input::Graph(worldData* data){
 
 void input::RectangleMenu(worldData* data){
     while(1){
+        utils::ClearScreen();
+
         cout << endl;
         cout << "Rectangle Selection: " << endl;
         PrintRectangles(data);
@@ -111,15 +113,15 @@ void input::RectangleMenu(worldData* data){
             data->rectangles.push_back(InputRectangle());
             utils::ClearScreen();
             cout << "New Rectangle Succesfully Added" << endl;
+            cout << endl << "Press Any Key to Continue";
+
             break;
         case 0:
             return;
         
         default:
-            if(input < 1 || input > data->rectangles.size()) {
-                utils::ClearScreen();
-                break;
-            }
+            if(input < 1 || input > data->rectangles.size()) break;
+
 
             ShowRectangle(data, input - 1);
 
@@ -148,7 +150,7 @@ rectangle input::InputRectangle(){
     cin >> height;
     cout << endl << "Input Symbol: ";
     cin >> symbol;
-    
+
     return rectangle(point, width, height, symbol, false);
 }
 
@@ -168,28 +170,127 @@ void input::PrintRectangles(worldData* data){
 
 void input::ShowRectangle(worldData* data, int index){
     rectangle* rect = &data->rectangles[index];
+
+    int input;
+
     while(1){
         utils::ClearScreen();
 
         cout << "Center: " << "{" << rect->GetX() << ", " << rect->GetY() << ")" << endl;
         cout << "Width: " << rect->GetWidth() << endl;
         cout << "Height: " << rect->GetHeight() << endl;
-        cout << "X Border: " << rect->GetYMin() << " - " << rect->GetYMax() << endl;
-        cout << "Y Border: " << rect->GetXMin() << " - " << rect->GetXMax() << endl;
+        cout << "X Border: " << rect->GetXMin() << " - " << rect->GetXMax() << endl;
+        cout << "Y Border: " << rect->GetYMin() << " - " << rect->GetYMax() << endl;
         cout << "Symbol: " << rect->GetSymbol() << endl;
+        cout << "Fill Mode: " << (rect->GetFill() ? "Filled" : "Hollow") << endl;
         cout << endl;
         cout << "Options: " << endl;
+        cout << "1. Change Size" << endl;
+        cout << "2. Change Symbol" << endl;
+        cout << "3. Change Fill Mode" << endl;
+        cout << "4. Check Intersection" << endl;
+        cout << "5. Create New Rectangle from Union" << endl;
+        cout << "6. Create New Rectangle from Intersection" << endl;
         cout << "9. Delete Rectangle" << endl;
         cout << "0. Back" << endl;
         cout << endl;
-        cout << "-> ";
+        cout << "-> Select Option: ";
 
-        int input;
         cin >> input;
 
         cout << endl;
 
         switch (input){
+            case 1:
+                ChangeSize(rect);
+
+                break;
+
+            case 2:
+                utils::ClearScreen();
+
+                cout << "Input New Symbol: ";
+
+                char symbol;
+                cin >> symbol;
+
+                rect->SetSymbol(symbol);
+
+                utils::ClearScreen();
+
+                cout << "Symbol Succesfully Changed to" << symbol << endl;
+                cout << endl << "Pres Any Key To Continue";
+
+                utils::getchar();
+
+                break;
+            case 3:
+                utils::ClearScreen();
+
+                rect->SetFill(!rect->GetFill());
+
+                utils::ClearScreen();
+
+                cout << "Fill Mode Succesfully Changed to " << (rect->GetFill() ? "Filled" : "Hollow") << endl;
+                cout << endl << "Pres Any Key To Continue";
+
+                utils::getchar();
+
+                break;
+
+            case 4:
+                utils::ClearScreen();
+
+                PrintRectangles(data);
+                cout << endl <<  "Select Second Rectangle: " ;
+
+                cin >> input;
+
+                if(input < 1 || input > data->rectangles.size()) break;
+
+                utils::ClearScreen();
+
+                if(*rect == data->rectangles[input - 1]){
+                    cout << "Rectangles Intersected" << endl;
+                }
+                else{
+                    cout << "Rectangles NOT Intersected" << endl;
+                }
+
+                cout << endl << "Pres Any Key To Continue";
+
+                utils::getchar();
+
+                break;
+
+            case 5:
+                utils::ClearScreen();
+
+                PrintRectangles(data);
+                cout << endl <<  "Select Second Rectangle: " ;
+
+                cin >> input;
+
+                if(input < 1 || input > data->rectangles.size()) break;
+
+                data->rectangles.push_back(*rect + data->rectangles[input - 1]);
+
+                break;
+
+            case 6:
+                utils::ClearScreen();
+
+                PrintRectangles(data);
+                cout << endl <<  "Select Second Rectangle: " ;
+
+                cin >> input;
+
+                if(input < 1 || input > data->rectangles.size()) break;
+
+                data->rectangles.push_back(*rect - data->rectangles[input - 1]);
+
+                break;
+
             case 9:
                 cout << "Are You Sure You Want To Delete This Rectangle?(y/n) ";
 
@@ -201,10 +302,14 @@ void input::ShowRectangle(worldData* data, int index){
                 data->rectangles.erase(data->rectangles.begin() + index);
 
                 utils::ClearScreen();
+
                 cout << "Rectangle Succesfully Deleted" << endl;
+                cout << endl << "Press Any Key to Continue";
+
+                utils::getchar();
                 return;
+
             case 0:
-                utils::ClearScreen();
                 return;
             
             default:
@@ -213,4 +318,87 @@ void input::ShowRectangle(worldData* data, int index){
     }
 
     
+}
+
+void input::ChangeSize(rectangle* rect){
+    utils::ClearScreen();
+
+    cout << "Options: " << endl;
+    cout << "1. Change Width" << endl;
+    cout << "2. Change Height" << endl;
+    cout << "3. Set Size to Double" << endl;
+    cout << "3. Set Size to Half" << endl;
+    cout << endl;
+    cout << "-> Select Option: ";
+
+    int input;
+
+    cin >> input;
+
+    utils::ClearScreen();
+
+    switch (input){
+        case 1:
+            cout << "Input New Width: ";
+
+            int width;
+
+            cin >> width;
+
+            rect->SetWidth(width);
+
+            utils::ClearScreen();
+
+            cout << "Rectangle Width Succesfully Changed to " << width << endl;
+            cout << endl << "Press Any Key to Continue";
+
+            utils::getchar();
+
+            break;
+        
+        case 2:
+            cout << "Input New Height: ";
+
+            int height;
+
+            cin >> height;
+
+            rect->SetHeight(width);
+
+            utils::ClearScreen();
+
+            cout << "Rectangle Height Succesfully Changed to" << height << endl;
+            cout << endl << "Press Any Key to Continue";
+
+            utils::getchar();
+
+            break;
+
+        case 3:
+            *rect++;
+
+            utils::ClearScreen();
+
+            cout << "Rectangle Size Succesfully Changed to Double" << endl;
+            cout << endl << "Press Any Key to Continue";
+
+            utils::getchar();
+
+            break;
+
+        case 4:
+            *rect--;
+
+            utils::ClearScreen();
+
+            cout << "Rectangle Size Succesfully Changed to Half" << endl;
+            cout << endl << "Press Any Key to Continue";
+
+            utils::getchar();
+
+            break;
+
+        default:
+            break;
+    }
 }

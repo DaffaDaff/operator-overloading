@@ -17,6 +17,8 @@ namespace input{
     rectangle InputRectangle();
     void PrintRectangles(worldData* data);
     void ShowRectangle(worldData* data, int index);
+
+    void ChangeSize(rectangle* rect);
 };
 
 #endif

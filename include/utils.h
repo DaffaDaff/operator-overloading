@@ -14,10 +14,6 @@
 
 #endif
 
-struct point{
-    float x, y;
-};
-
 namespace utils{
     void ClearScreen();
     int GetDigit(int value);

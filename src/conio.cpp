@@ -202,7 +202,7 @@ void c_clrscr()
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
-#include "conio.h"
+#include "include/conio.h"
 
 int c_kbhit(void)
 {
@@ -474,19 +474,19 @@ static char getch_(int echo)
 /* Read 1 character without echo */
 int c_getch(void)
 {
-  struct termios old, new;
+  struct termios _old, _new;
   int ch;
 
-  tcgetattr(0, &old);
+  tcgetattr(0, &_old);
 
-  new = old;
-  new.c_lflag &= ~ICANON;
-  new.c_lflag &= ~ECHO;
-  tcsetattr(0, TCSANOW, &new);
+  _new = _old;
+  _new.c_lflag &= ~ICANON;
+  _new.c_lflag &= ~ECHO;
+  tcsetattr(0, TCSANOW, &_new);
 
   ch = getchar();
 
-  tcsetattr(0, TCSANOW, &old);
+  tcsetattr(0, TCSANOW, &_old);
 
   return ch;
 }
@@ -494,19 +494,19 @@ int c_getch(void)
 /* Read 1 character with echo */
 int c_getche(void)
 {
-  struct termios old, new;
+  struct termios _old, _new;
   int ch;
 
-  tcgetattr(0, &old);
+  tcgetattr(0, &_old);
 
-  new = old;
-  new.c_lflag &= ~ICANON;
+  _new = _old;
+  _new.c_lflag &= ~ICANON;
   //new.c_lflag &= ~ECHO;
-  tcsetattr(0, TCSANOW, &new);
+  tcsetattr(0, TCSANOW, &_new);
 
   ch = getchar();
 
-  tcsetattr(0, TCSANOW, &old);
+  tcsetattr(0, TCSANOW, &_old);
   return ch;
 }
 

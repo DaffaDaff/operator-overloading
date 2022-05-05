@@ -1,6 +1,6 @@
 CXX?=g++ 
 CXXFLAGS+= --std=c++17 -O3 -Wextra -I.
-SOURCES=src/main.cpp src/utils.cpp src/input.cpp src/rectangle.cpp src/coordinateSystem.cpp
+SOURCES=src/main.cpp src/utils.cpp src/input.cpp src/rectangle.cpp src/coordinateSystem.cpp src/conio.cpp
 
 BUILDDIR=build
 
